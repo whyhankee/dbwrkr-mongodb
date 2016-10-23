@@ -1,0 +1,28 @@
+{
+  "name": "dbwrkr-mongodb",
+  "version": "0.0.0",
+  "description": "DBWrkr storage engine for MongoDB",
+  "main": "dbwrkr-mongodb.js",
+  "scripts": {
+    "tdd": "nodemon -w ./ -w ../dbwrkr ./test/dbwrkr-mongodb-tests.js",
+    "test": "node ./test/dbwrkr-mongodb-tests.js"
+  },
+  "keywords": [
+    "dbwrkr",
+    "wrkr"
+  ],
+  "dependencies": {
+    "dbwrkr": "git://github.com/whyhankee/dbwrkr.git",
+    "debug": "2.2.0",
+    "mongodb": "2.2.11"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:whyhankee/dbwrkr-mongodb.git"
+  },
+  "author": "Paul Wijhenke <paul@paulsplace.nl>",
+  "license": "MIT"
+}
