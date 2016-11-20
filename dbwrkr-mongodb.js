@@ -131,9 +131,9 @@ DbWrkrMongoDB.prototype.publish = function publish(events, done) {
 };
 
 
-DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queues, done) {
+DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
   var query = {
-    queue: {$in: queues},
+    queue: queue,
     when: {$lte: new Date()}
   };
   var update = {
