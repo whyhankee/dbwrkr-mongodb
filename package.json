@@ -12,7 +12,7 @@
     "wrkr"
   ],
   "dependencies": {
-    "dbwrkr": "0.0.2",
+    "dbwrkr": "0.0.3",
     "debug": "2.2.0",
     "mongodb": "2.2.11"
   },
