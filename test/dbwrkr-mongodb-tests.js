@@ -10,6 +10,6 @@ var testOptions = {
 };
 
 
-dbWrkrTests(testOptions, (err) => {
+dbWrkrTests(testOptions, function (err) {
   if (err) throw err;
 });

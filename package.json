@@ -5,7 +5,7 @@
   "main": "dbwrkr-mongodb.js",
   "scripts": {
     "tdd": "nodemon -w ./ -w ../dbwrkr ./test/dbwrkr-mongodb-tests.js",
-    "test": "node ./test/dbwrkr-mongodb-tests.js"
+    "test": "node ./test/dbwrkr-mongodb-tests.js && eslint ."
   },
   "keywords": [
     "dbwrkr",
@@ -17,6 +17,7 @@
     "mongodb": "2.2.11"
   },
   "devDependencies": {
+    "eslint": "<3.0.0",
     "nodemon": "1.11.0"
   },
   "repository": {

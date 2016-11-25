@@ -1,3 +1,5 @@
+var util = require('util');
+
 var assert = require('assert');
 var debug = require('debug')('dbwrkr:mongodb');
 var mongo = require('mongodb');
@@ -38,8 +40,14 @@ function DbWrkrMongoDB(opt) {
 DbWrkrMongoDB.prototype.connect = function connect(done) {
   var self = this;
 
-  var cnStr = `mongodb://${this.host}:${this.port}/${this.dbName}`;
-  mongoClient.connect(cnStr, {w: 1}, (err, db) => {
+  var cnStr = util.format('mongodb://%s:%s/%s',
+    this.host,
+    this.port,
+    this.dbName
+  );
+
+  // var cnStr = `mongodb://${this.host}:${this.port}/${this.dbName}`;
+  mongoClient.connect(cnStr, {w: 1}, function (err, db) {
     if (err) return done(err);
 
     self.db = db;
@@ -118,12 +126,12 @@ DbWrkrMongoDB.prototype.publish = function publish(events, done) {
   var publishEvents = Array.isArray(events) ? events : [events];
 
   debug('storing ', publishEvents);
-  this.dbQitems.insertMany(publishEvents, (err, results) => {
+  this.dbQitems.insertMany(publishEvents, function (err, results) {
     if (err) return done(err);
 
     assert(results.result.n === publishEvents.length, 'all events stored');
 
-    var createdIds = results.insertedIds.map( (id) => {
+    var createdIds = results.insertedIds.map( function (id) {
       return id+'';
     });
     return done(null, createdIds);
@@ -144,7 +152,7 @@ DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
     sort: {'when': 1},
     returnOriginal: false
   };
-  this.dbQitems.findOneAndUpdate(query, update, options, (err, result) => {
+  this.dbQitems.findOneAndUpdate(query, update, options, function (err, result) {
     if (err) return done(err);
     if (!result.value) return done(null, undefined);
 
@@ -162,7 +170,7 @@ DbWrkrMongoDB.prototype.find = function find(criteria, done) {
   }
 
   debug('finding ', criteria);
-  this.dbQitems.find(criteria).toArray((err, items) => {
+  this.dbQitems.find(criteria).toArray(function (err, items) {
     if (err) return done(err);
 
     return done(null, items.map(fieldMapper));
@@ -177,7 +185,7 @@ DbWrkrMongoDB.prototype.remove = function remove(criteria, done) {
   }
 
   debug('removing', criteria);
-  this.dbQitems.remove(criteria, (err) => {
+  this.dbQitems.remove(criteria, function (err) {
     return done(err || null);
   });
 };
