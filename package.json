@@ -1,6 +1,6 @@
 {
   "name": "dbwrkr-mongodb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "DBWrkr storage engine for MongoDB",
   "main": "dbwrkr-mongodb.js",
   "scripts": {
