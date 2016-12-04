@@ -165,7 +165,11 @@ DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
 
 DbWrkrMongoDB.prototype.find = function find(criteria, done) {
   if (criteria.id) {
-    criteria._id = mongo.ObjectId(criteria.id);
+    var findIds = Array.isArray(criteria.id) ? criteria.id : [criteria.id];
+    findIds = findIds.map(function (id) {
+      return mongo.ObjectId(id);
+    });
+    criteria._id = {$in: findIds} ;
     delete criteria.id;
   }
 
