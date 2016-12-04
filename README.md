@@ -11,6 +11,9 @@ DBWrkr pub-sub system <https://github.com/whyhankee/dbwrkr>
 
 ## Changelog
 
+v0.0.5 (upcoming)
+* Upgrade dependencies
+
 v0.0.4
 * Support for finding Array of Ids
 
