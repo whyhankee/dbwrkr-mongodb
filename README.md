@@ -11,7 +11,7 @@ DBWrkr pub-sub system <https://github.com/whyhankee/dbwrkr>
 
 ## Changelog
 
-v0.0.5 (upcoming)
+v0.0.5
 * Upgrade dependencies
 
 v0.0.4
