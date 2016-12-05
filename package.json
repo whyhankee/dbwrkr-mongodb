@@ -12,11 +12,11 @@
     "wrkr"
   ],
   "dependencies": {
-    "dbwrkr": "0.0.3",
     "debug": "2.3.3",
     "mongodb": "2.2.12"
   },
   "devDependencies": {
+    "dbwrkr": "0.0.4",
     "eslint": "<3.0.0",
     "nodemon": "1.11.0"
   },
