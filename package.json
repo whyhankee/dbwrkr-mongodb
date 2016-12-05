@@ -9,7 +9,8 @@
   },
   "keywords": [
     "dbwrkr",
-    "wrkr"
+    "wrkr",
+    "mongodb"
   ],
   "dependencies": {
     "debug": "2.3.3",
