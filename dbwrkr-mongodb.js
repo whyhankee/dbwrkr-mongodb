@@ -1,10 +1,10 @@
-var util = require('util');
+const util = require('util');
 
-var assert = require('assert');
-var debug = require('debug')('dbwrkr:mongodb');
-var mongo = require('mongodb');
+const assert = require('assert');
+const debug = require('debug')('dbwrkr:mongodb');
+const mongo = require('mongodb');
 
-var mongoClient = mongo.MongoClient;
+const mongoClient = mongo.MongoClient;
 
 
 // Document schema
@@ -38,9 +38,9 @@ function DbWrkrMongoDB(opt) {
 
 
 DbWrkrMongoDB.prototype.connect = function connect(done) {
-  var self = this;
+  const self = this;
 
-  var cnStr = util.format('mongodb://%s:%s/%s',
+  const cnStr = util.format('mongodb://%s:%s/%s',
     this.host,
     this.port,
     this.dbName
@@ -83,7 +83,7 @@ DbWrkrMongoDB.prototype.disconnect = function disconnect(done) {
 
 DbWrkrMongoDB.prototype.subscribe = function subscribe(eventName, queueName, done) {
   debug('subscribe ', {event: eventName, queue: queueName});
-  var update = {
+  const update = {
     $addToSet: {queues: queueName}
   };
   updateSubscription(this.dbSubscriptions, eventName, update, done);
@@ -92,7 +92,7 @@ DbWrkrMongoDB.prototype.subscribe = function subscribe(eventName, queueName, don
 
 DbWrkrMongoDB.prototype.unsubscribe = function unsubscribe(eventName, queueName, done) {
   debug('unsubscribe ', {event: eventName, queue: queueName});
-  var update = {
+  const update = {
     $pull: {queues: queueName}
   };
   updateSubscription(this.dbSubscriptions, eventName, update, done);
@@ -111,8 +111,8 @@ DbWrkrMongoDB.prototype.subscriptions = function subscriptions(eventName, done) 
 
 
 function updateSubscription(table, eventName, update, done) {
-  var find = {eventName: eventName};
-  var options = {
+  const find = {eventName: eventName};
+  const options = {
     upsert: true
   };
   table.findOneAndUpdate(find, update, options, function (err) {
@@ -123,7 +123,7 @@ function updateSubscription(table, eventName, update, done) {
 
 
 DbWrkrMongoDB.prototype.publish = function publish(events, done) {
-  var publishEvents = Array.isArray(events) ? events : [events];
+  const publishEvents = Array.isArray(events) ? events : [events];
 
   debug('storing ', publishEvents);
   this.dbQitems.insertMany(publishEvents, function (err, results) {
@@ -131,7 +131,7 @@ DbWrkrMongoDB.prototype.publish = function publish(events, done) {
 
     assert(results.result.n === publishEvents.length, 'all events stored');
 
-    var createdIds = results.insertedIds.map( function (id) {
+    const createdIds = results.insertedIds.map(function (id) {
       return id+'';
     });
     return done(null, createdIds);
@@ -140,15 +140,15 @@ DbWrkrMongoDB.prototype.publish = function publish(events, done) {
 
 
 DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
-  var query = {
+  const query = {
     queue: queue,
     when: {$lte: new Date()}
   };
-  var update = {
+  const update = {
     $unset: {when: 1},
     $set: {done: new Date()}
   };
-  var options = {
+  const options = {
     sort: {'when': 1},
     returnOriginal: false
   };
@@ -156,7 +156,7 @@ DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
     if (err) return done(err);
     if (!result.value) return done(null, undefined);
 
-    var nextItem = fieldMapper(result.value);
+    const nextItem = fieldMapper(result.value);
     debug('fetchNext', nextItem);
     return done(null, nextItem);
   });
@@ -165,7 +165,7 @@ DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
 
 DbWrkrMongoDB.prototype.find = function find(criteria, done) {
   if (criteria.id) {
-    var findIds = Array.isArray(criteria.id) ? criteria.id : [criteria.id];
+    let findIds = Array.isArray(criteria.id) ? criteria.id : [criteria.id];
     findIds = findIds.map(function (id) {
       return mongo.ObjectId(id);
     });

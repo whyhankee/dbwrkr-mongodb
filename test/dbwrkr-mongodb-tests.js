@@ -1,9 +1,9 @@
 /* eslint no-console: 0 */
-var DBWrkrMongoDb = require('../dbwrkr-mongodb');
-var dbWrkrTests = require('dbwrkr').tests;
+const DBWrkrMongoDb = require('../dbwrkr-mongodb');
+const dbWrkrTests = require('dbwrkr').tests;
 
 
-var testOptions = {
+const testOptions = {
   storage: new DBWrkrMongoDb({
     dbName: 'dbwrkr_tests'
   })
