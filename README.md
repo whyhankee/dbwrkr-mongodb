@@ -8,6 +8,10 @@ This is the MongoDB storage engine for DBWrkr
 
 DBWrkr pub-sub system <https://github.com/whyhankee/dbwrkr>
 
+### Requirements
+
+* Requires MongoDB 3.2+ (support for partial indexes)
+
 
 ## Changelog
 

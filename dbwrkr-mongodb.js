@@ -56,8 +56,25 @@ DbWrkrMongoDB.prototype.connect = function connect(done) {
     self.dbQitems = self.db.collection('wrkr_qitems');
 
     self.dbSubscriptions.createIndex({event: 1}, checkIndexResult);
-    self.dbQitems.createIndex({queue: 1, when: 1}, checkIndexResult);
-    self.dbQitems.createIndex({done: 1}, {sparse: true}, checkIndexResult);
+
+    self.dbQitems.createIndex({tid: 1}, {
+      partialFilterExpression: {
+        tid: {$exists: 1}
+      }
+    }, checkIndexResult);
+
+    self.dbQitems.createIndex({queue: 1, when: 1}, {
+      partialFilterExpression: {
+        when: {$exists: 1}
+      }
+    }, checkIndexResult);
+
+    self.dbQitems.createIndex({done: 1}, {
+      partialFilterExpression: {
+        done: {$exists: 1}
+      }
+    }, checkIndexResult);
+
     return done(null);
 
     function checkIndexResult(err, result) {
