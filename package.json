@@ -17,8 +17,8 @@
     "mongodb": "2.2.29"
   },
   "devDependencies": {
-    "dbwrkr": "0.0.4",
-    "eslint": "4.1.1",
+    "dbwrkr": "git@github.com:whyhankee/dbwrkr.git",
+    "eslint": "4.0.0",
     "nodemon": "1.11.0"
   },
   "repository": {
