@@ -57,12 +57,6 @@ DbWrkrMongoDB.prototype.connect = function connect(done) {
 
     self.dbSubscriptions.createIndex({event: 1}, checkIndexResult);
 
-    self.dbQitems.createIndex({tid: 1}, {
-      partialFilterExpression: {
-        tid: {$exists: 1}
-      }
-    }, checkIndexResult);
-
     self.dbQitems.createIndex({queue: 1, when: 1}, {
       partialFilterExpression: {
         when: {$exists: 1}
@@ -181,6 +175,7 @@ DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
 };
 
 
+// Note: only findByID should find processed qitem
 DbWrkrMongoDB.prototype.find = function find(criteria, done) {
   if (criteria.id) {
     let findIds = Array.isArray(criteria.id) ? criteria.id : [criteria.id];
@@ -189,6 +184,10 @@ DbWrkrMongoDB.prototype.find = function find(criteria, done) {
     });
     criteria._id = {$in: findIds} ;
     delete criteria.id;
+  }
+
+  if (!criteria._id) {
+    criteria.when = {$gte: new Date(0, 0, 0)};
   }
 
   debug('finding ', criteria);
