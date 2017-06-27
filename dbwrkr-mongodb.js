@@ -57,15 +57,11 @@ DbWrkrMongoDB.prototype.connect = function connect(done) {
 
     self.dbSubscriptions.createIndex({event: 1}, checkIndexResult);
 
+    self.dbQitems.createIndex({name: 1, tid: 1}, checkIndexResult);
+
     self.dbQitems.createIndex({queue: 1, when: 1}, {
       partialFilterExpression: {
         when: {$exists: 1}
-      }
-    }, checkIndexResult);
-
-    self.dbQitems.createIndex({done: 1}, {
-      partialFilterExpression: {
-        done: {$exists: 1}
       }
     }, checkIndexResult);
 
