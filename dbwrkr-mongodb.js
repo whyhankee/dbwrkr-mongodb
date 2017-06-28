@@ -58,8 +58,7 @@ DbWrkrMongoDB.prototype.connect = function connect(done) {
     self.dbSubscriptions.createIndex({event: 1}, checkIndexResult);
 
     self.dbQitems.createIndex({name: 1, tid: 1}, checkIndexResult);
-
-    self.dbQitems.createIndex({queue: 1, when: 1}, {
+    self.dbQitems.createIndex({queue: 1, created: 1}, {
       partialFilterExpression: {
         when: {$exists: 1}
       }
@@ -157,7 +156,7 @@ DbWrkrMongoDB.prototype.fetchNext = function fetchNext(queue, done) {
     $set: {done: new Date()}
   };
   const options = {
-    sort: {'when': 1},
+    sort: {'created': 1},
     returnOriginal: false
   };
   this.dbQitems.findOneAndUpdate(query, update, options, function (err, result) {
