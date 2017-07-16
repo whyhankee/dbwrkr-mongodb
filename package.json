@@ -1,11 +1,11 @@
 {
   "name": "dbwrkr-mongodb",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "DBWrkr storage engine for MongoDB",
   "main": "dbwrkr-mongodb.js",
   "scripts": {
-    "tdd": "nodemon -w ./ -w ../dbwrkr ./test/dbwrkr-mongodb-tests.js",
-    "test": "node ./test/dbwrkr-mongodb-tests.js && eslint ."
+    "test": "node ./test/dbwrkr-mongodb-tests.js && eslint .",
+    "tdd": "nodemon -w ./ -w ../dbwrkr ./test/dbwrkr-mongodb-tests.js"
   },
   "keywords": [
     "dbwrkr",

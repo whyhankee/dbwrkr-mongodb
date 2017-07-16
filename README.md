@@ -15,6 +15,10 @@ DBWrkr pub-sub system <https://github.com/whyhankee/dbwrkr>
 
 ## Changelog
 
+v0.0.7
+* .find() should only find unprocessed items
+* Updated indexes
+
 v0.0.6
 * make dbwrkr a devDependency
 
